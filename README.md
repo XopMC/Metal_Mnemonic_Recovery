@@ -7,7 +7,7 @@
 
 <a id="english"></a>
 <p align="center">
-  <img src="./docs/media/hero.svg" alt="Metal_Mnemonic_Recovery hero" width="820">
+  <img src="./docs/media/hero-v2.svg" alt="Metal_Mnemonic_Recovery hero" width="820">
 </p>
 
 <p align="center">
