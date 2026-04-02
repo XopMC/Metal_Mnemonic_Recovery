@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use Metal_Mnemonic_Recovery in a publication or technical write-up, please cite it using the metadata below."
+title: "Metal_Mnemonic_Recovery"
+type: software
+authors:
+  - family-names: Khoroshavin
+    given-names: Mikhail
+repository-code: "https://github.com/XopMC/Metal_Mnemonic_Recovery"
+url: "https://github.com/XopMC/Metal_Mnemonic_Recovery"
+license: "Apache-2.0"
+abstract: "Metal_Mnemonic_Recovery is a macOS Metal implementation for BIP39 mnemonic recovery workflows and adapts the upstream recovery workflow from https://github.com/XopMC/CUDA_Mnemonic_Recovery."
+keywords:
+  - metal
+  - macos
+  - apple-silicon
+  - bip39
+  - mnemonic-recovery
+  - cryptocurrency

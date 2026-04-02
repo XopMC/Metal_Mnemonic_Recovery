@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  macos-metal:
+    name: macOS Metal Build And Validation
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          cmake --version
+
+      - name: Configure
+        run: cmake --preset macos-metal-release
+
+      - name: Build
+        run: cmake --build out/build/macos-metal-release -j3
+
+      - name: Install staged bundle
+        run: cmake --install out/build/macos-metal-release --prefix out/install-ci
+
+      - name: Verify staged bundle assets
+        run: |
+          test -x out/install-ci/bin/Metal_Mnemonic_Recovery
+          test -f out/install-ci/bin/ChecksumKernels.metallib
+          test -f out/install-ci/bin/secp-precompute-v1.bin
+          test -f out/install-ci/README.md
+          test -f out/install-ci/LICENSE.txt
+          test -d out/install-ci/examples
+
+      - name: CTest
+        run: ctest --test-dir out/build/macos-metal-release --output-on-failure
+
+      - name: Staged bundle smoke
+        run: env CMR_EXE="$PWD/out/install-ci/bin/Metal_Mnemonic_Recovery" bash ./scripts/benchmark_smoke_macos.sh
+
+      - name: Build purity
+        run: bash ./tests/build_purity_macos.sh
+
+      - name: Unified build purity
+        run: bash ./tests/build_purity_unified_macos.sh

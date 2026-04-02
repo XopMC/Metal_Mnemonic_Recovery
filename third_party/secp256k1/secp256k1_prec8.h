@@ -1,0 +1,1 @@
+extern REC_DEVICE  secp256k1_ge_storage** prec;

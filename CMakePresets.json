@@ -1,0 +1,31 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "macos-metal-release",
+      "displayName": "macOS Metal Release (Makefiles)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/out/build/macos-metal-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "macos-metal-release",
+      "configurePreset": "macos-metal-release",
+      "jobs": 0
+    }
+  ]
+}
