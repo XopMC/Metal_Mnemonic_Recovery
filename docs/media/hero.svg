@@ -23,8 +23,8 @@
   <rect x="64" y="64" width="1152" height="592" rx="32" fill="#0b1220" opacity="0.78" stroke="#1e293b"/>
 
   <g filter="url(#shadow)">
-    <rect x="92" y="118" width="578" height="402" rx="24" fill="#0a0f1a" stroke="#1f2937"/>
-    <rect x="92" y="118" width="578" height="48" rx="24" fill="#111827"/>
+    <rect x="92" y="118" width="646" height="402" rx="24" fill="#0a0f1a" stroke="#1f2937"/>
+    <rect x="92" y="118" width="646" height="48" rx="24" fill="#111827"/>
     <circle cx="124" cy="142" r="7" fill="#ef4444"/>
     <circle cx="146" cy="142" r="7" fill="#f59e0b"/>
     <circle cx="168" cy="142" r="7" fill="#22c55e"/>
@@ -35,29 +35,29 @@
     <text x="120" y="306" fill="#cbd5e1" font-family="JetBrains Mono, Consolas, monospace" font-size="17">-d derivations.txt -c cusrxeStT</text>
     <text x="120" y="340" fill="#cbd5e1" font-family="JetBrains Mono, Consolas, monospace" font-size="17">-d_type 3 -hash 1a4603d1...</text>
 
-    <text x="120" y="394" fill="#22c55e" font-family="JetBrains Mono, Consolas, monospace" font-size="15">[!] Recovery summary: tested=33554432 checksum-valid=2097152</text>
-    <text x="120" y="428" fill="#38bdf8" font-family="JetBrains Mono, Consolas, monospace" font-size="15">[!] Recovery speed: 1.80 M candidates/s | 25.11 M hashes/s</text>
-    <text x="120" y="462" fill="#38bdf8" font-family="JetBrains Mono, Consolas, monospace" font-size="15">[!] Recovery task done (1/1): tested=33554432 checksum-valid=2097152</text>
-    <text x="120" y="496" fill="#38bdf8" font-family="JetBrains Mono, Consolas, monospace" font-size="15">[!] Recovery tested 33554432 candidates. Checksum-valid: 2097152. Found: 8</text>
+    <text x="120" y="394" fill="#22c55e" font-family="JetBrains Mono, Consolas, monospace" font-size="14">[!] Recovery summary: tested=33554432 checksum-valid=2097152</text>
+    <text x="120" y="428" fill="#38bdf8" font-family="JetBrains Mono, Consolas, monospace" font-size="14">[!] Recovery speed: 1.80 M candidates/s | 25.11 M hashes/s</text>
+    <text x="120" y="462" fill="#38bdf8" font-family="JetBrains Mono, Consolas, monospace" font-size="14">[!] Recovery task done (1/1): tested=33554432 checksum-valid=2097152</text>
+    <text x="120" y="496" fill="#38bdf8" font-family="JetBrains Mono, Consolas, monospace" font-size="14">[!] Recovery tested 33554432 candidates. Checksum-valid: 2097152. Found: 8</text>
   </g>
 
   <g>
-    <text x="712" y="176" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="18" letter-spacing="2">METAL • BIP39 • RECOVERY</text>
+    <text x="782" y="176" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="18" letter-spacing="2">METAL • BIP39 • RECOVERY</text>
 
-    <text x="712" y="238" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">Metal Mnemonic</text>
-    <text x="712" y="286" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">Recovery</text>
+    <text x="782" y="238" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">Metal Mnemonic</text>
+    <text x="782" y="286" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">Recovery</text>
 
-    <text x="712" y="336" fill="#93c5fd" font-family="Segoe UI, Arial, sans-serif" font-size="21">Focused recovery for</text>
-    <text x="712" y="366" fill="#93c5fd" font-family="Segoe UI, Arial, sans-serif" font-size="21">real wallet workflows.</text>
+    <text x="782" y="336" fill="#93c5fd" font-family="Segoe UI, Arial, sans-serif" font-size="21">Focused recovery for</text>
+    <text x="782" y="366" fill="#93c5fd" font-family="Segoe UI, Arial, sans-serif" font-size="21">real wallet workflows.</text>
 
-    <text x="712" y="420" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">Recover missing BIP39 words, validate</text>
-    <text x="712" y="448" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">against hashes or filters, and keep</text>
-    <text x="712" y="476" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">the public workflow focused on one</text>
-    <text x="712" y="504" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">maintained Metal release path.</text>
+    <text x="782" y="420" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">Recover missing BIP39 words, validate</text>
+    <text x="782" y="448" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">against hashes or filters, and keep</text>
+    <text x="782" y="476" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">the familiar recovery workflow on</text>
+    <text x="782" y="504" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="18">a Metal release for macOS.</text>
 
-    <rect x="712" y="548" width="302" height="48" rx="24" fill="url(#panelGlow)"/>
-    <text x="740" y="578" fill="#04101d" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">Recovery-first public release</text>
+    <rect x="782" y="548" width="302" height="48" rx="24" fill="url(#panelGlow)"/>
+    <text x="810" y="578" fill="#04101d" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">Recovery-first public release</text>
 
-    <text x="712" y="630" fill="#94a3b8" font-family="Segoe UI, Arial, sans-serif" font-size="18">Bitcoin • Ethereum • Solana • TON</text>
+    <text x="782" y="630" fill="#94a3b8" font-family="Segoe UI, Arial, sans-serif" font-size="18">Bitcoin • Ethereum • Solana • TON</text>
   </g>
 </svg>
