@@ -19,31 +19,33 @@
 
 Author: Mikhail Khoroshavin aka "XopMC"
 
-`Metal_Mnemonic_Recovery` is a macOS recovery tool for incomplete BIP39 phrases. It keeps the practical recovery workflow of the original CUDA project, but the active production implementation is adapted for Metal on Apple GPUs.
+`Metal_Mnemonic_Recovery` is a macOS tool for recovering incomplete BIP39 phrases. It follows the workflow of the original CUDA project, but runs the heavy calculations on the GPU through Metal.
 
-This repository is a full Metal adaptation of [XopMC/CUDA_Mnemonic_Recovery](https://github.com/XopMC/CUDA_Mnemonic_Recovery). The CUDA repository remains the upstream reference for the original recovery workflow and project lineage; this repository is the maintained Metal/macOS branch.
+This repository is a full Metal adaptation of [XopMC/CUDA_Mnemonic_Recovery](https://github.com/XopMC/CUDA_Mnemonic_Recovery). The CUDA repository is the original project; this repository contains the macOS and Metal version.
 
 ## Why This Project Exists
 
 - Recover real BIP39 phrases with missing words marked as `*`.
-- Validate candidates against exact hashes, Bloom filters, and XOR filters instead of browsing raw noise.
-- Keep one focused recovery CLI for Bitcoin-like targets, Ethereum, Solana, and TON.
-- Preserve the public recovery-oriented CLI and `Found:` output shape while running the heavy work on Apple GPUs through Metal.
+- Check candidate phrases against exact hashes, Bloom filters, and XOR filters.
+- Provide one recovery CLI for Bitcoin-like targets, Ethereum, Solana, and TON.
+- Keep the familiar recovery CLI and `Found:` output while moving the heavy work to the GPU through Metal.
 
 ## Scope
 
 - Platform: macOS with Metal support
 - GPU API: Metal 3
-- Public mode: recovery-only CLI
-- Targets: BTC compressed/uncompressed/segwit/taproot/xpoint, ETH, Solana, TON short/all
-- Derivation policies: `-d_type 1`, `2`, `3`, `4`
-- Primary validation target: Apple Silicon Macs
+- Command-line mode: recovery
+- Supported targets: BTC compressed/uncompressed/segwit/taproot/xpoint, ETH, Solana, TON short/all
+- Supported derivation modes: `-d_type 1`, `2`, `3`, `4`
+- Best tested on: Apple Silicon Macs
 
-This repository documents only the supported Metal/macOS mainline path. It does not ship public release flows outside the maintained macOS and Metal scope.
+This repository covers the macOS and Metal version only. It does not include CUDA setup steps or cross-platform release packages.
 
 ## Quick Start
 
-Recover one missing word against the bundled compressed exact-hash fixture:
+`-device` still accepts the old list and range syntax, but the current Metal build uses the first valid Metal device.
+
+Try a one-missing-word recovery using the included compressed-address example:
 
 ```bash
 ./out/build/macos-metal-release/bin/Metal_Mnemonic_Recovery \
@@ -98,20 +100,20 @@ Default executable path:
 out/build/macos-metal-release/bin/Metal_Mnemonic_Recovery
 ```
 
-The build also stages the required runtime assets beside the executable:
+The build also places the files required at runtime next to the executable:
 
 - `ChecksumKernels.metallib`
 - `secp-precompute-v1.bin`
 
 ## Live Recovery Status
 
-The default bounded recovery path prints live progress lines during longer runs, including candidates per second, hashes per second, tested counters, checksum-valid counters, and found hits.
+During longer runs the program prints status lines with candidates per second, hashes per second, tested count, how many candidates passed the checksum, and found results.
 
 <p>
-  <img src="./docs/media/recovery-speed-3missing.png" alt="Local 3-missing Metal speed capture" width="920">
+  <img src="./docs/media/recovery-speed-3missing.png" alt="Local Metal speed screenshot for a 3-missing recovery run" width="920">
 </p>
 
-Caption: local macOS Metal speed capture on the bundled `1x3missing` fixture. This is a representative local run snapshot, not a universal benchmark claim.
+Caption: screenshot from a local macOS Metal run on the bundled `1x3missing` example. It shows one real run on one machine, not a universal performance claim.
 
 ## Supported Target Families
 
@@ -131,7 +133,7 @@ Caption: local macOS Metal speed capture on the bundled `1x3missing` fixture. Th
 
 ## Validation
 
-Main local validation surface:
+Main local checks:
 
 ```bash
 ctest --test-dir out/build/macos-metal-release --output-on-failure
@@ -141,22 +143,22 @@ bash ./tests/build_purity_macos.sh
 bash ./tests/build_purity_unified_macos.sh
 ```
 
-The maintained validation surface covers:
+These checks cover:
 
-- help output and public CLI shape
-- inline and file recovery
-- typo correction
-- passphrase value and file flows
+- command help and CLI behavior
+- recovery from a single template and from files
+- typo correction mode
+- passphrase passed directly and from files
 - exact secp, Solana, TON, mixed `-d_type 3`, and `-d_type 4`
-- no-fallback behavior
-- build-purity and unified Metal purity checks
+- checks that the program does not fall back
+- checks that the public build stays Metal-only and does not silently fall back
 
-## Project Notes
+## Notes
 
-- The public CLI remains recovery-only. Non-recovery legacy surfaces are intentionally not part of the maintained public release.
-- Output formatting around `Found:` remains stable so existing parsing scripts keep working.
-- The repository keeps the Metal/macOS branch honest: no CUDA-specific installation guidance, no cross-platform binary claims, and no CPU fallback as the primary production path.
-- The public `-device` flag keeps compatibility with list and range syntax, but the maintained public runtime uses the first valid Metal device.
+- This release focuses on recovery commands. Older non-recovery modes from the CUDA codebase are not part of the supported Metal release.
+- The `Found:` output format stays the same, so existing parsing scripts keep working.
+- This repository is intentionally macOS and Metal only. It does not include CUDA setup steps, cross-platform binary promises, or CPU fallback as the main execution path.
+- The `-device` flag still accepts the old list and range syntax, but the current Metal build uses the first valid Metal device.
 
 ## Support And Policy
 
@@ -177,31 +179,33 @@ The maintained validation surface covers:
 
 Автор: Михаил Хорошавин aka "XopMC"
 
-`Metal_Mnemonic_Recovery` это инструмент для восстановления неполных BIP39-фраз на macOS. Он сохраняет практический recovery workflow исходного CUDA-проекта, но активная production-реализация адаптирована под Metal и Apple GPU.
+`Metal_Mnemonic_Recovery` это инструмент для восстановления неполных BIP39-фраз на macOS. Он повторяет рабочий сценарий исходного CUDA-проекта, но выполняет тяжёлые вычисления на GPU через Metal.
 
-Этот репозиторий является полной Metal-адаптацией [XopMC/CUDA_Mnemonic_Recovery](https://github.com/XopMC/CUDA_Mnemonic_Recovery). Исходный CUDA-репозиторий остаётся upstream-референсом для оригинального recovery workflow и истории проекта, а здесь поддерживается ветка Metal/macOS.
+Этот репозиторий является полной Metal-адаптацией [XopMC/CUDA_Mnemonic_Recovery](https://github.com/XopMC/CUDA_Mnemonic_Recovery). Исходный CUDA-репозиторий остаётся оригинальным проектом, а здесь находится версия для macOS и Metal.
 
 ## Зачем нужен проект
 
 - Восстанавливать реальные BIP39-фразы, где пропущенные слова отмечены как `*`.
-- Проверять кандидаты по точным хешам, Bloom-фильтрам и XOR-фильтрам, а не просматривать шум вручную.
+- Проверять кандидаты по точным хешам, Bloom-фильтрам и XOR-фильтрам.
 - Использовать один понятный recovery CLI для Bitcoin-подобных целей, Ethereum, Solana и TON.
-- Сохранить знакомый публичный интерфейс и формат `Found:`, но выполнять тяжёлые вычисления на Apple GPU через Metal.
+- Сохранить знакомый интерфейс recovery и формат `Found:`, но перенести тяжёлые вычисления на GPU через Metal.
 
 ## Область поддержки
 
 - Платформа: macOS с поддержкой Metal
 - GPU API: Metal 3
-- Публичный режим: только recovery CLI
-- Цели: BTC compressed/uncompressed/segwit/taproot/xpoint, ETH, Solana, TON short/all
-- Политики деривации: `-d_type 1`, `2`, `3`, `4`
-- Основная validation target: Apple Silicon Mac
+- Режим командной строки: recovery
+- Поддерживаемые цели: BTC compressed/uncompressed/segwit/taproot/xpoint, ETH, Solana, TON short/all
+- Поддерживаемые режимы деривации: `-d_type 1`, `2`, `3`, `4`
+- Лучше всего протестировано на: Apple Silicon Mac
 
-Этот репозиторий документирует только поддерживаемый mainline-путь Metal/macOS. Публичные release flows за пределами поддерживаемой macOS и Metal области сюда не входят.
+Этот репозиторий посвящён только версии для macOS и Metal. Здесь нет инструкций по CUDA и нет кроссплатформенных release-пакетов.
 
 ## Быстрый старт
 
-Восстановить одну пропущенную позицию по встроенному exact-hash fixture:
+`-device` по-прежнему понимает старый синтаксис со списками и диапазонами, но текущая Metal-версия использует первое подходящее устройство Metal.
+
+Восстановить одну пропущенную позицию по встроенному примеру с точным хешем:
 
 ```bash
 ./out/build/macos-metal-release/bin/Metal_Mnemonic_Recovery \
@@ -223,7 +227,7 @@ The maintained validation surface covers:
   -hash 1a4603d1ff9121515d02a6fee37c20829ca522b0
 ```
 
-Точный Solana recovery run:
+Точный запуск восстановления для Solana:
 
 ```bash
 ./out/build/macos-metal-release/bin/Metal_Mnemonic_Recovery \
@@ -240,7 +244,7 @@ The maintained validation surface covers:
 Требования:
 
 - macOS с поддержкой Metal
-- Xcode или Xcode Command Line Tools с поддержкой Metal compiler
+- Xcode или Xcode Command Line Tools с поддержкой компилятора Metal
 - CMake 3.22+
 
 Конфигурация и сборка:
@@ -256,20 +260,20 @@ cmake --build --preset macos-metal-release
 out/build/macos-metal-release/bin/Metal_Mnemonic_Recovery
 ```
 
-Сборка также кладёт рядом обязательные runtime assets:
+Сборка также кладёт рядом файлы, нужные для запуска:
 
 - `ChecksumKernels.metallib`
 - `secp-precompute-v1.bin`
 
 ## Живой статус во время recovery
 
-В default bounded recovery path во время длинных прогонов CLI печатает live progress lines с текущей скоростью по кандидатам, скоростью по хешам, счётчиком `tested`, числом checksum-valid кандидатов и числом найденных совпадений.
+Во время длинных прогонов программа печатает живой статус: текущую скорость по кандидатам, скорость по хешам, счётчик `tested`, число checksum-valid кандидатов и число найденных совпадений.
 
 <p>
-  <img src="./docs/media/recovery-speed-3missing.png" alt="Локальный 3-missing Metal speed capture" width="920">
+  <img src="./docs/media/recovery-speed-3missing.png" alt="Локальный скриншот скорости Metal на запуске с тремя пропущенными словами" width="920">
 </p>
 
-Подпись: локальный speed capture на macOS Metal для встроенного `1x3missing` fixture. Это честный локальный снимок запуска, а не универсальное benchmark-обещание.
+Подпись: локальный скриншот запуска на macOS Metal для встроенного примера `1x3missing`. Это снимок одного реального запуска, а не обещание одинаковой скорости на любой машине.
 
 ## Поддерживаемые семейства целей
 
@@ -289,7 +293,7 @@ out/build/macos-metal-release/bin/Metal_Mnemonic_Recovery
 
 ## Валидация
 
-Основная локальная поверхность валидации:
+Основные локальные проверки:
 
 ```bash
 ctest --test-dir out/build/macos-metal-release --output-on-failure
@@ -299,22 +303,22 @@ bash ./tests/build_purity_macos.sh
 bash ./tests/build_purity_unified_macos.sh
 ```
 
-Поддерживаемая validation surface покрывает:
+Эти проверки покрывают:
 
-- help output и публичную форму CLI
-- inline и file recovery
-- typo correction
-- passphrase value/file flows
-- exact secp, Solana, TON, mixed `-d_type 3`, `-d_type 4`
-- no-fallback behavior
-- build-purity и unified Metal purity checks
+- справку по командам и поведение CLI
+- восстановление из одной строки и из файлов
+- исправление опечаток
+- передачу passphrase напрямую и через файл
+- точные проверки для secp, Solana, TON, mixed `-d_type 3` и `-d_type 4`
+- проверки, что программа не уходит в fallback
+- проверки, что публичная сборка остаётся Metal-only без скрытого отката
 
-## Заметки по проекту
+## Заметки
 
-- Публичный CLI остаётся recovery-only. Легаси-режимы вне recovery намеренно не входят в поддерживаемый публичный релиз.
-- Формат вывода вокруг `Found:` сохранён стабильным, чтобы существующие скрипты разбора продолжали работать.
-- Репозиторий держит честную рамку Metal/macOS: без CUDA-specific installation guidance, без кросс-платформенных binary claims и без CPU fallback как основного production path.
-- Публичный `-device` сохраняет совместимость с list/range syntax, но поддерживаемый public runtime использует первый валидный Metal device.
+- Этот релиз ориентирован на recovery-команды. Старые нерелевантные режимы из CUDA-версии в поддерживаемый Metal-релиз не входят.
+- Формат вывода `Found:` сохранён, чтобы старые скрипты разбора продолжали работать.
+- Репозиторий специально ограничен macOS и Metal. Здесь нет инструкций по CUDA, обещаний по другим платформам и CPU fallback как основного пути выполнения.
+- Параметр `-device` оставлен совместимым со старым синтаксисом, но текущая Metal-версия использует первое подходящее устройство.
 
 ## Поддержка и документы
 
