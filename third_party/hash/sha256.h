@@ -1,36 +1,26 @@
-/*
- * This file is part of the VanitySearch distribution (https://github.com/JeanLucPons/VanitySearch).
- * Copyright (c) 2019 Jean Luc PONS.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
-
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+// Author: Mikhail Khoroshavin aka "XopMC"
+//
+// Host-side SHA-256 helpers for the macOS Metal release path.
+// This translation unit intentionally uses CommonCrypto so the public
+// repository does not ship GPL-derived host hashing code.
 
 #ifndef SHA256_H
 #define SHA256_H
+
 #include <cstddef>
 #include <cstdint>
 #include <string>
 
-void sha256(uint8_t* input, size_t length, uint8_t* digest);
-void sha256_33(uint8_t* input, uint8_t* digest);
-void sha256_65(uint8_t* input, uint8_t* digest);
-void sha256_checksum(uint8_t* input, int length, uint8_t* checksum);
-void sha256sse_1B(uint32_t* i0, uint32_t* i1, uint32_t* i2, uint32_t* i3,
-	uint8_t* d0, uint8_t* d1, uint8_t* d2, uint8_t* d3);
-void sha256sse_2B(uint32_t* i0, uint32_t* i1, uint32_t* i2, uint32_t* i3,
-	uint8_t* d0, uint8_t* d1, uint8_t* d2, uint8_t* d3);
-void sha256sse_checksum(uint32_t* i0, uint32_t* i1, uint32_t* i2, uint32_t* i3,
-	uint8_t* d0, uint8_t* d1, uint8_t* d2, uint8_t* d3);
+void sha256(std::uint8_t* input, std::size_t length, std::uint8_t* digest);
+void sha256_33(std::uint8_t* input, std::uint8_t* digest);
+void sha256_65(std::uint8_t* input, std::uint8_t* digest);
+void sha256_checksum(std::uint8_t* input, int length, std::uint8_t* checksum);
+void sha256sse_1B(std::uint32_t* i0, std::uint32_t* i1, std::uint32_t* i2, std::uint32_t* i3,
+    std::uint8_t* d0, std::uint8_t* d1, std::uint8_t* d2, std::uint8_t* d3);
+void sha256sse_2B(std::uint32_t* i0, std::uint32_t* i1, std::uint32_t* i2, std::uint32_t* i3,
+    std::uint8_t* d0, std::uint8_t* d1, std::uint8_t* d2, std::uint8_t* d3);
+void sha256sse_checksum(std::uint32_t* i0, std::uint32_t* i1, std::uint32_t* i2, std::uint32_t* i3,
+    std::uint8_t* d0, std::uint8_t* d1, std::uint8_t* d2, std::uint8_t* d3);
 std::string sha256_hex(unsigned char* digest);
 void sha256sse_test();
 

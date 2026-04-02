@@ -42,7 +42,7 @@ jobs:
         run: ctest --test-dir out/build/macos-metal-release --output-on-failure
 
       - name: Staged bundle smoke
-        run: env CMR_EXE="$PWD/out/install-ci/bin/Metal_Mnemonic_Recovery" bash ./scripts/benchmark_smoke_macos.sh
+        run: env CMR_EXE="$PWD/out/install-ci/bin/Metal_Mnemonic_Recovery" bash ./out/install-ci/scripts/benchmark_smoke_macos.sh
 
       - name: Build purity
         run: bash ./tests/build_purity_macos.sh
